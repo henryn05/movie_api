@@ -1,14 +1,77 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset = "UTF-8">
-  <title>MyFlix</title>
-
+    <title>API Documentation</title>
 </head>
-  <h1>Documentation</h1>
-  <p>Lorem Ipsum</p>
 <body>
-</body>
+    <h1>API Documentation</h1>
 
+    <h2>Users</h2>
+    <table>
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Response</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/users</td>
+            <td>List of all users</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/users/{user_id}</td>
+            <td>Details of a specific user</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/users</td>
+            <td>Create a new user</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/api/users/{user_id}</td>
+            <td>Update a user's information</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/users/{user_id}</td>
+            <td>Delete a user</td>
+        </tr>
+    </table>
+
+    <h2>Movies</h2>
+    <table>
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Response</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/movies</td>
+            <td>List of all movies</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/api/movies/{movie_id}</td>
+            <td>Details of a specific movie</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/api/movies</td>
+            <td>Create a new movie</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/api/movies/{movie_id}</td>
+            <td>Update a movie's information</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/api/movies/{movie_id}</td>
+            <td>Delete a movie</td>
+        </tr>
+    </table>
+</body>
 </html>
