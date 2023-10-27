@@ -11,32 +11,56 @@
         <tr>
             <th>Request</th>
             <th>URL</th>
+            <th>Description</th>
+            <th>Method</th>
+            <th>Query Parameters</th>
+            <th>Request Body</th>
             <th>Response</th>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/api/users</td>
+            <td>/users</td>
             <td>List of all users</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>JSON array of user objects</td>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/api/users/{user_id}</td>
+            <td>/users/{user_id}</td>
             <td>Details of a specific user</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>JSON object representing a user</td>
         </tr>
         <tr>
             <td>POST</td>
-            <td>/api/users</td>
+            <td>/users</td>
             <td>Create a new user</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>JSON object with user data (e.g., username, email)</td>
+            <td>JSON object representing the newly created user</td>
         </tr>
         <tr>
             <td>PUT</td>
-            <td>/api/users/{user_id}</td>
+            <td>/users/{user_id}</td>
             <td>Update a user's information</td>
+            <td>PUT</td>
+            <td>None</td>
+            <td>JSON object with updated user data</td>
+            <td>JSON object representing the updated user</td>
         </tr>
         <tr>
             <td>DELETE</td>
-            <td>/api/users/{user_id}</td>
+            <td>/users/{user_id}</td>
             <td>Delete a user</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>None</td>
+            <td>Success message or status code</td>
         </tr>
     </table>
 
@@ -45,32 +69,56 @@
         <tr>
             <th>Request</th>
             <th>URL</th>
+            <th>Description</th>
+            <th>Method</th>
+            <th>Query Parameters</th>
+            <th>Request Body</th>
             <th>Response</th>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/api/movies</td>
+            <td>/movies</td>
             <td>List of all movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>JSON array of movie objects</td>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/api/movies/{movie_id}</td>
+            <td>/movies/{movie_id}</td>
             <td>Details of a specific movie</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>JSON object representing a movie</td>
         </tr>
         <tr>
             <td>POST</td>
-            <td>/api/movies</td>
+            <td>/movies</td>
             <td>Create a new movie</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>JSON object with movie data (e.g., title, director, genre)</td>
+            <td>JSON object representing the newly created movie</td>
         </tr>
         <tr>
             <td>PUT</td>
-            <td>/api/movies/{movie_id}</td>
+            <td>/movies/{movie_id}</td>
             <td>Update a movie's information</td>
+            <td>PUT</td>
+            <td>None</td>
+            <td>JSON object with updated movie data</td>
+            <td>JSON object representing the updated movie</td>
         </tr>
         <tr>
             <td>DELETE</td>
-            <td>/api/movies/{movie_id}</td>
+            <td>/movies/{movie_id}</td>
             <td>Delete a movie</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>None</td>
+            <td>Success message or status code</td>
         </tr>
     </table>
 </body>
