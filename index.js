@@ -1,8 +1,19 @@
 const express = require("express");
-  bodyParser = require("body-parser");
-  methodOverride = require("method-override");
-  morgan = require("morgan");
-  path = require("path");
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
+const morgan = require("morgan");
+const path = require("path");
+
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const app = express();
 const port = 8080;
@@ -17,70 +28,9 @@ app.use(bodyParser.json());
 app.use(methodOverride("_method")); // Specify the method override field
 
 // Dummy data for users and movies
-let users = [
-];
+let users = [];
 
-let movies = [
-  {
-    title: "Dr. Strangelove ",
-    director: "Stanley Kubric",
-    genre: "War",
-  },
-
-  {
-    title: "Schindler's List",
-    director: "Steven Spielberg",
-    genre: "War",
-  },
-
-  {
-    title: "There Will Be Blood",
-    director: "Paul Anderson",
-    genre: "Drama",
-  },
-
-  {
-    title: "No Country For Old Men",
-    director: "Ethan Coen",
-    genre: "Drama",
-  },
-
-  {
-    title: "Arrival",
-    director: "Denis Villeneuve",
-    genre: "Sci-Fi",
-  },
-
-  {
-    title: "Memento",
-    director: "Christopher Nolan",
-    genre: "Drama",
-  },
-
-  {
-    title: "The Good, the Bad, the Ugly",
-    director: "Sergio Leone",
-    genre: "Western",
-  },
-
-  {
-    title: "The Witch",
-    director: "Robert Eggers",
-    genre: "Horror",
-  },
-
-  {
-    title: "Chinatown",
-    director: "Roman Polanski",
-    genre: "Crime",
-  },
-
-  {
-    title: "Goodfellas",
-    director: "Martin Scorsese",
-    genre: "Crime",
-  },
-];
+let movies = [];
 
 // Routes for Users
 app.get("/users", (req, res) => {
@@ -91,8 +41,30 @@ app.get("/users/:user_id", (req, res) => {
   res.send(`Get user with ID ${req.params.user_id}`); // Action to retrieve a specific user
 });
 
-app.post("/users", (req, res) => {
-  res.send("Create a new user"); // Action to create a new user
+app.post('/users', async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 app.put("/users/:user_id", (req, res) => {
