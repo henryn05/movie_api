@@ -13,7 +13,7 @@ const Directors = Models.Director;
 
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(methodOverride("_method")); // Specify the method override field
 
 app.get("/", (req, res) => {
-  res.send("Welcome to MyFlix!")
+  res.send("Welcome to MyFlix!");
 });
 
 // Routes for Users
@@ -60,7 +60,7 @@ app.post("/users", async (req, res) => {
   await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + "already exists");
+        return res.status(400).send(req.body.Username + " already exists");
       } else {
         Users.create({
           Username: req.body.Username,
@@ -84,22 +84,25 @@ app.post("/users", async (req, res) => {
 });
 
 app.put("/users/:Username", async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+  await Users.findOneAndUpdate(
+    { Username: req.params.Username },
     {
-      Username: req.body.Username,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
-    }
-  },
-  { new: true })
-  .then((updatedUser) => {
-    res.json(updatedUser);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send("Error: " + err);
-  })
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 app.delete("/users/:Username", async (req, res) => {
