@@ -46,7 +46,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.get("/users/:Username", async (req, res) => {
-  await Users.findOne({ Username: req.params.Username })
+  await Users.findOne({ Username: req.params.username })
     .then((user) => {
       res.json(user);
     })
@@ -57,16 +57,16 @@ app.get("/users/:Username", async (req, res) => {
 });
 
 app.post("/users", async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+  await Users.findOne({ Username: req.body.username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + " already exists");
+        return res.status(400).send(req.body.username + " already exists");
       } else {
         Users.create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
+          Username: req.body.username,
+          Password: req.body.password,
+          Email: req.body.email,
+          Birthday: req.body.birthday,
         })
           .then((user) => {
             res.status(201).json(user);
@@ -85,13 +85,13 @@ app.post("/users", async (req, res) => {
 
 app.put("/users/:Username", async (req, res) => {
   await Users.findOneAndUpdate(
-    { Username: req.params.Username },
+    { Username: req.params.username },
     {
       $set: {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday,
+        Username: req.body.username,
+        Password: req.body.password,
+        Email: req.body.email,
+        Birthday: req.body.birthday,
       },
     },
     { new: true }
@@ -106,12 +106,12 @@ app.put("/users/:Username", async (req, res) => {
 });
 
 app.delete("/users/:Username", async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.Username })
+  await Users.findOneAndRemove({ Username: req.params.username })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.Username + " was not found");
+        res.status(400).send(req.params.username + " was not found");
       } else {
-        res.status(200).send(req.params.Username + " was deleted.");
+        res.status(200).send(req.params.username + " was deleted.");
       }
     })
     .catch((err) => {
@@ -121,30 +121,263 @@ app.delete("/users/:Username", async (req, res) => {
 });
 
 // Routes for Movies
-
-app.get("/movies", (req, res) => {
-  res.send("Get all movies"); // Action to retrieve all movies
+app.get("/movies", async (req, res) => {
+  await Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.get("/movies/:movie_id", (req, res) => {
-  res.send(`Get movie with ID ${req.params.movie_id}`); // Action to retrieve a specific movie
+app.get("/movies/:Title", async (req, res) => {
+  await Movies.findOne({ Title: req.params.title })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.post("/movies", (req, res) => {
-  res.send("Create a new movie"); // Action to create a new movie
+app.post("/movies", async (req, res) => {
+  await Movies.findOne({ Title: req.body.title })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.title + " already exists");
+      } else {
+        Movies.create({
+          Title: req.body.title,
+          // Genre: req.body.genre,
+          // Director: req.body.director,
+          ReleaseYear: req.body.releaseYear,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
 });
 
-app.put("/movies/:movie_id", (req, res) => {
-  res.send(`Update movie with ID ${req.params.movie_id}`); // Action to update a movie
+app.put("/movies/:Title", async (req, res) => {
+  await Movies.findOneAndUpdate(
+    { Title: req.params.title },
+    {
+      $set: {
+        Title: req.body.title,
+        // Genre: req.body.genre,
+        // Director: req.body.director,
+        ReleaseYear: req.body.releaseYear,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedUser) => {
+      res.json(updatedUser);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
-app.delete("/movies/:movie_id", (req, res) => {
-  res.send(`Delete movie with ID ${req.params.movie_id}`); // Action to delete a movie
+app.delete("/movies/:Title", async (req, res) => {
+  await Movies.findOneAndRemove({ Title: req.params.title })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.title + " was not found");
+      } else {
+        res.status(200).send(req.params.title + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+// Routes for Genres
+app.get("/genres", async (req, res) => {
+  await Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.get("/genres/:Name", async (req, res) => {
+  await Genres.findOne({ Name: req.params.name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.post("/genres", async (req, res) => {
+  await Genres.findOne({ Name: req.body.name })
+    .then((genre) => {
+      if (genre) {
+        return res.status(400).send(req.body.name + " already exists");
+      } else {
+        Genres.create({
+          Name: req.body.name,
+          Description: req.body.description,
+        })
+          .then((newGenre) => {
+            res.status(201).json(newGenre);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
+
+app.put("/genres/:Name", async (req, res) => {
+  await Genres.findOneAndUpdate(
+    { Name: req.params.name },
+    {
+      $set: {
+        Name: req.body.name,
+        Description: req.body.description,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedGenre) => {
+      res.json(updatedGenre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.delete("/genres/:Name", async (req, res) => {
+  await Genres.findOneAndRemove({ Name: req.params.name })
+    .then((genre) => {
+      if (!genre) {
+        res.status(400).send(req.params.name + " was not found");
+      } else {
+        res.status(200).send(req.params.name + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+//Routes for Directors
+app.get("/directors", async (req, res) => {
+  await Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.get("/directors/:Name", async (req, res) => {
+  await Directors.findOne({ Name: req.params.name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.post("/directors", async (req, res) => {
+  await Directors.findOne({ Name: req.body.name })
+    .then((director) => {
+      if (director) {
+        return res.status(400).send(req.body.name + " already exists");
+      } else {
+        Directors.create({
+          Name: req.body.name,
+          // Birthdate: req.body.birthdate,
+          // Movies: req.body.movies,
+        })
+          .then((newDirector) => {
+            res.status(201).json(newDirector);
+          })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error: " + error);
+          });
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
+
+app.put("/directors/:Name", async (req, res) => {
+  await Directors.findOneAndUpdate(
+    { Name: req.params.name },
+    {
+      $set: {
+        Name: req.body.name,
+        // Birthdate: req.body.birthdate,
+        // Movies: req.body.movies,
+      },
+    },
+    { new: true }
+  )
+    .then((updatedDirector) => {
+      res.json(updatedDirector);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
+app.delete("/directors/:Name", async (req, res) => {
+  await Directors.findOneAndRemove({ Name: req.params.name })
+    .then((director) => {
+      if (!director) {
+        res.status(400).send(req.params.name + " was not found");
+      } else {
+        res.status(200).send(req.params.name + " was deleted.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
 });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).send("Something broke");
 });
 
 app.listen(8080, () => {
