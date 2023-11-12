@@ -46,7 +46,7 @@ app.get("/users", async (req, res) => {
 });
 
 app.get("/users/:Username", async (req, res) => {
-  await Users.findOne({ Username: req.params.username })
+  await Users.findOne({ Username: req.params.Username })
     .then((user) => {
       res.json(user);
     })
@@ -57,16 +57,16 @@ app.get("/users/:Username", async (req, res) => {
 });
 
 app.post("/users", async (req, res) => {
-  await Users.findOne({ Username: req.body.username })
+  await Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.username + " already exists");
+        return res.status(400).send(req.body.Username + " already exists");
       } else {
         Users.create({
-          Username: req.body.username,
-          Password: req.body.password,
-          Email: req.body.email,
-          Birthday: req.body.birthday,
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthdate: req.body.Birthdate,
         })
           .then((user) => {
             res.status(201).json(user);
@@ -85,13 +85,13 @@ app.post("/users", async (req, res) => {
 
 app.put("/users/:Username", async (req, res) => {
   await Users.findOneAndUpdate(
-    { Username: req.params.username },
+    { Username: req.params.Username },
     {
       $set: {
-        Username: req.body.username,
-        Password: req.body.password,
-        Email: req.body.email,
-        Birthday: req.body.birthday,
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday,
       },
     },
     { new: true }
@@ -106,12 +106,12 @@ app.put("/users/:Username", async (req, res) => {
 });
 
 app.delete("/users/:Username", async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.username })
+  await Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.username + " was not found");
+        res.status(400).send(req.params.Username + " was not found");
       } else {
-        res.status(200).send(req.params.username + " was deleted.");
+        res.status(200).send(req.params.Username + " was deleted.");
       }
     })
     .catch((err) => {
@@ -133,7 +133,7 @@ app.get("/movies", async (req, res) => {
 });
 
 app.get("/movies/:Title", async (req, res) => {
-  await Movies.findOne({ Title: req.params.title })
+  await Movies.findOne({ Title: req.params.Title })
     .then((user) => {
       res.json(user);
     })
@@ -144,16 +144,16 @@ app.get("/movies/:Title", async (req, res) => {
 });
 
 app.post("/movies", async (req, res) => {
-  await Movies.findOne({ Title: req.body.title })
+  await Movies.findOne({ Title: req.body.Title })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.title + " already exists");
+        return res.status(400).send(req.body.Title + " already exists");
       } else {
         Movies.create({
-          Title: req.body.title,
-          // Genre: req.body.genre,
-          // Director: req.body.director,
-          ReleaseYear: req.body.releaseYear,
+          Title: req.body.Title,
+          Genre: req.body.Genre,
+          Director: req.body.Director,
+          ReleaseYear: req.body.ReleaseYear,
         })
           .then((user) => {
             res.status(201).json(user);
@@ -172,13 +172,13 @@ app.post("/movies", async (req, res) => {
 
 app.put("/movies/:Title", async (req, res) => {
   await Movies.findOneAndUpdate(
-    { Title: req.params.title },
+    { Title: req.params.Title },
     {
       $set: {
-        Title: req.body.title,
-        // Genre: req.body.genre,
-        // Director: req.body.director,
-        ReleaseYear: req.body.releaseYear,
+        Title: req.body.Title,
+        Genre: req.body.Genre,
+        Director: req.body.Director,
+        ReleaseYear: req.body.ReleaseYear,
       },
     },
     { new: true }
@@ -193,12 +193,12 @@ app.put("/movies/:Title", async (req, res) => {
 });
 
 app.delete("/movies/:Title", async (req, res) => {
-  await Movies.findOneAndRemove({ Title: req.params.title })
+  await Movies.findOneAndRemove({ Title: req.params.Title })
     .then((user) => {
       if (!user) {
-        res.status(400).send(req.params.title + " was not found");
+        res.status(400).send(req.params.Title + " was not found");
       } else {
-        res.status(200).send(req.params.title + " was deleted.");
+        res.status(200).send(req.params.Title + " was deleted.");
       }
     })
     .catch((err) => {
@@ -220,7 +220,7 @@ app.get("/genres", async (req, res) => {
 });
 
 app.get("/genres/:Name", async (req, res) => {
-  await Genres.findOne({ Name: req.params.name })
+  await Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
       res.json(genre);
     })
@@ -231,14 +231,14 @@ app.get("/genres/:Name", async (req, res) => {
 });
 
 app.post("/genres", async (req, res) => {
-  await Genres.findOne({ Name: req.body.name })
+  await Genres.findOne({ Name: req.body.Name })
     .then((genre) => {
       if (genre) {
-        return res.status(400).send(req.body.name + " already exists");
+        return res.status(400).send(req.body.Name + " already exists");
       } else {
         Genres.create({
-          Name: req.body.name,
-          Description: req.body.description,
+          Name: req.body.Name,
+          Description: req.body.Description,
         })
           .then((newGenre) => {
             res.status(201).json(newGenre);
@@ -257,11 +257,11 @@ app.post("/genres", async (req, res) => {
 
 app.put("/genres/:Name", async (req, res) => {
   await Genres.findOneAndUpdate(
-    { Name: req.params.name },
+    { Name: req.params.Name },
     {
       $set: {
-        Name: req.body.name,
-        Description: req.body.description,
+        Name: req.body.Name,
+        Description: req.body.Description,
       },
     },
     { new: true }
@@ -276,12 +276,12 @@ app.put("/genres/:Name", async (req, res) => {
 });
 
 app.delete("/genres/:Name", async (req, res) => {
-  await Genres.findOneAndRemove({ Name: req.params.name })
+  await Genres.findOneAndRemove({ Name: req.params.Name })
     .then((genre) => {
       if (!genre) {
-        res.status(400).send(req.params.name + " was not found");
+        res.status(400).send(req.params.Name + " was not found");
       } else {
-        res.status(200).send(req.params.name + " was deleted.");
+        res.status(200).send(req.params.Name + " was deleted.");
       }
     })
     .catch((err) => {
@@ -303,7 +303,7 @@ app.get("/directors", async (req, res) => {
 });
 
 app.get("/directors/:Name", async (req, res) => {
-  await Directors.findOne({ Name: req.params.name })
+  await Directors.findOne({ Name: req.params.Name })
     .then((director) => {
       res.json(director);
     })
@@ -314,15 +314,15 @@ app.get("/directors/:Name", async (req, res) => {
 });
 
 app.post("/directors", async (req, res) => {
-  await Directors.findOne({ Name: req.body.name })
+  await Directors.findOne({ Name: req.body.Name })
     .then((director) => {
       if (director) {
-        return res.status(400).send(req.body.name + " already exists");
+        return res.status(400).send(req.body.Name + " already exists");
       } else {
         Directors.create({
-          Name: req.body.name,
-          // Birthdate: req.body.birthdate,
-          // Movies: req.body.movies,
+          Name: req.body.Name,
+          Birthdate: req.body.Birthdate,
+          Movies: req.body.Movies,
         })
           .then((newDirector) => {
             res.status(201).json(newDirector);
@@ -341,12 +341,12 @@ app.post("/directors", async (req, res) => {
 
 app.put("/directors/:Name", async (req, res) => {
   await Directors.findOneAndUpdate(
-    { Name: req.params.name },
+    { Name: req.params.Name },
     {
       $set: {
-        Name: req.body.name,
-        // Birthdate: req.body.birthdate,
-        // Movies: req.body.movies,
+        Name: req.body.Name,
+        Birthdate: req.body.Birthdate,
+        Movies: req.body.Movies,
       },
     },
     { new: true }
@@ -361,12 +361,12 @@ app.put("/directors/:Name", async (req, res) => {
 });
 
 app.delete("/directors/:Name", async (req, res) => {
-  await Directors.findOneAndRemove({ Name: req.params.name })
+  await Directors.findOneAndRemove({ Name: req.params.Name })
     .then((director) => {
       if (!director) {
-        res.status(400).send(req.params.name + " was not found");
+        res.status(400).send(req.params.Name + " was not found");
       } else {
-        res.status(200).send(req.params.name + " was deleted.");
+        res.status(200).send(req.params.Name + " was deleted.");
       }
     })
     .catch((err) => {

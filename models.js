@@ -9,7 +9,8 @@ let movieSchema = mongoose.Schema({
   },
   Director: {
     Name: String,
-    Description: String
+    Bio: String,
+    Birthdate: Date
   },
   ImagePath: String,
   Featured: Boolean
@@ -19,8 +20,8 @@ let userSchema = mongoose.Schema({
   Username: {type: String, required: true},
   Password: {type: String, required: true},
   Email: {type: String, required: true},
-  Birthday: Date,
-  favorite_movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie'}]
+  Birthdate: Date,
+  Favorite_movies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie'}]
 });
 
 let genreSchema = mongoose.Schema({
@@ -30,7 +31,8 @@ let genreSchema = mongoose.Schema({
 
 let directorSchema = mongoose.Schema({
     Name: {type: String, required: true},
-    Bio: {type: String, required: true}
+    Bio: {type: String, required: true},
+    Birthdate: Date
   });
 
 let Movie = mongoose.model('Movie', movieSchema);
