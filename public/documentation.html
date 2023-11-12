@@ -7,7 +7,7 @@
     <h1>API Documentation</h1>
 
     <h2>Users</h2>
-    <table>
+    <table cellspacing="10">
         <tr>
             <th>Request</th>
             <th>URL</th>
@@ -24,16 +24,16 @@
             <td>GET</td>
             <td>None</td>
             <td>None</td>
-            <td>JSON array of user objects</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/users/{user_id}</td>
+            <td>/users/:username</td>
             <td>Details of a specific user</td>
             <td>GET</td>
+            <td>username: string</td>
             <td>None</td>
-            <td>None</td>
-            <td>JSON object representing a user</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
         </tr>
         <tr>
             <td>POST</td>
@@ -41,31 +41,31 @@
             <td>Create a new user</td>
             <td>POST</td>
             <td>None</td>
-            <td>JSON object with user data (e.g., username, email)</td>
-            <td>JSON object representing the newly created user</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
         </tr>
         <tr>
             <td>PUT</td>
-            <td>/users/{user_id}</td>
+            <td>/users/:username</td>
             <td>Update a user's information</td>
             <td>PUT</td>
-            <td>None</td>
-            <td>JSON object with updated user data</td>
-            <td>JSON object representing the updated user</td>
+            <td>username: string</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
+            <td>username: string, <br>password: string,<br> email: string, <br>favorite_movies: [ ]</td>
         </tr>
         <tr>
             <td>DELETE</td>
-            <td>/users/{user_id}</td>
+            <td>/users/:username</td>
             <td>Delete a user</td>
             <td>DELETE</td>
-            <td>None</td>
+            <td>username: string</td>
             <td>None</td>
             <td>Success message or status code</td>
         </tr>
     </table>
 
     <h2>Movies</h2>
-    <table>
+    <table cellspacing="10">
         <tr>
             <th>Request</th>
             <th>URL</th>
@@ -82,16 +82,16 @@
             <td>GET</td>
             <td>None</td>
             <td>None</td>
-            <td>JSON array of movie objects</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
         </tr>
         <tr>
             <td>GET</td>
-            <td>/movies/{movie_id}</td>
+            <td>/movies/:title</td>
             <td>Details of a specific movie</td>
             <td>GET</td>
+            <td>title: string</td>
             <td>None</td>
-            <td>None</td>
-            <td>JSON object representing a movie</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
         </tr>
         <tr>
             <td>POST</td>
@@ -99,24 +99,140 @@
             <td>Create a new movie</td>
             <td>POST</td>
             <td>None</td>
-            <td>JSON object with movie data (e.g., title, director, genre)</td>
-            <td>JSON object representing the newly created movie</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
         </tr>
         <tr>
             <td>PUT</td>
-            <td>/movies/{movie_id}</td>
+            <td>/movies/:title</td>
             <td>Update a movie's information</td>
             <td>PUT</td>
-            <td>None</td>
-            <td>JSON object with updated movie data</td>
-            <td>JSON object representing the updated movie</td>
+            <td>title: string</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
+            <td>title: string, <br>description: string, <br>genre: { }, <br>director: { }</td>
         </tr>
         <tr>
             <td>DELETE</td>
-            <td>/movies/{movie_id}</td>
+            <td>/movies/:title</td>
             <td>Delete a movie</td>
             <td>DELETE</td>
+            <td>title: string</td>
             <td>None</td>
+            <td>Success message or status code</td>
+        </tr>
+    </table>
+
+    <h2>Genres</h2>
+    <table cellspacing="10">
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>Method</th>
+            <th>Query Parameters</th>
+            <th>Request Body</th>
+            <th>Response</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/genres</td>
+            <td>List of all genres</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>name: string, <br>description: string</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/genres/:name</td>
+            <td>Details of a specific genre</td>
+            <td>GET</td>
+            <td>name: string</td>
+            <td>None</td>
+            <td>name: string, <br>description: string</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/genres</td>
+            <td>Create a new genre</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>name: string, <br>description: string</td>
+            <td>name: string, <br>description: string</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/genres/:name</td>
+            <td>Update a genre's information</td>
+            <td>PUT</td>
+            <td>name: string</td>
+            <td>name: string, <br>description: string</td>
+            <td>name: string, <br>description: string</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/genres/:name</td>
+            <td>Delete a genre</td>
+            <td>DELETE</td>
+            <td>name: string</td>
+            <td>None</td>
+            <td>Success message or status code</td>
+        </tr>
+    </table>
+
+    <h2>Directors</h2>
+    <table cellspacing="10">
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>Description</th>
+            <th>Method</th>
+            <th>Query Parameters</th>
+            <th>Request Body</th>
+            <th>Response</th>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/directors</td>
+            <td>List of all directors</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>None</td>
+            <td>name: string, <br>bio: string</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/directors/:name</td>
+            <td>Details of a specific director</td>
+            <td>GET</td>
+            <td>name: string</td>
+            <td>None</td>
+            <td>name: string, <br>bio: string</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/directors</td>
+            <td>Create a new directors</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>name: string, <br>bio: string</td>
+            <td>name: string, <br>bio: string</td>
+        </tr>
+        <tr>
+            <td>PUT</td>
+            <td>/directors/:name</td>
+            <td>Update a director's information</td>
+            <td>PUT</td>
+            <td>name: string</td>
+            <td>name: string, <br>bio: string</td>
+            <td>name: string, <br>bio: string</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/directors/:name</td>
+            <td>Delete a directors</td>
+            <td>DELETE</td>
+            <td>name: string</td>
             <td>None</td>
             <td>Success message or status code</td>
         </tr>

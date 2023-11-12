@@ -24,13 +24,13 @@ let userSchema = mongoose.Schema({
 });
 
 let genreSchema = mongoose.Schema({
-    Name: String,
-    Description: String
+    Name: {type: String, required: true},
+    Description: {type: String, required: true}
   });
 
 let directorSchema = mongoose.Schema({
-    Name: String,
-    Bio: String
+    Name: {type: String, required: true},
+    Bio: {type: String, required: true}
   });
 
 let Movie = mongoose.model('Movie', movieSchema);
