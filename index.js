@@ -87,7 +87,7 @@ app.post("/users/:Username/movies/:_id", async (req, res) => {
   await Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $push: { Favorite_movies: req.params._id},
+      $push: { Favorite_movies: req.params._id },
     },
     { new: true }
   )
