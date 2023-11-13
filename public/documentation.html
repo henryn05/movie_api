@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td>GET</td>
-            <td>/users/:username</td>
+            <td>/users/:Username</td>
             <td>Details of a specific user</td>
             <td>GET</td>
             <td>Username: string</td>
@@ -45,8 +45,17 @@
             <td>Username: string, <br>Password: string,<br> Email: string, <br>Favorite_movies: [ ]</td>
         </tr>
         <tr>
+            <td>POST</td>
+            <td>/users/:Username/movies/:Title</td>
+            <td>Add a movie to a user's favorite list</td>
+            <td>POST</td>
+            <td>Username: string, <br>MovieID: integer</td>
+            <td>Username: string, <br>Password: string,<br> Email: string, <br>Favorite_movies: [ ]</td>
+            <td>Username: string, <br>Password: string,<br> Email: string, <br>Favorite_movies: [ ]</td>
+        </tr>
+        <tr>
             <td>PUT</td>
-            <td>/users/:username</td>
+            <td>/users/:Username</td>
             <td>Update a user's information</td>
             <td>PUT</td>
             <td>Username: string</td>
@@ -62,6 +71,16 @@
             <td>None</td>
             <td>Success message or status code</td>
         </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/users/:Username/movies/:Title</td>
+            <td>DELETE a movie from a user's favorite list</td>
+            <td>DELETE</td>
+            <td>Username: string, <br>MovieID: integer</td>
+            <td>Username: string, <br>Password: string,<br> Email: string, <br>Favorite_movies: [ ]</td>
+            <td>Username: string, <br>Password: string,<br> Email: string, <br>Favorite_movies: [ ]</td>
+        </tr>
+
     </table>
 
     <h2>Movies</h2>
