@@ -73,7 +73,7 @@ app.post("/users", async (req, res) => {
           })
           .catch((error) => {
             console.error(error);
-            res.status(500).send("Error: " + error);
+            res.status(500).send("1st Error: " + error);
           });
       }
     })
@@ -83,11 +83,11 @@ app.post("/users", async (req, res) => {
     });
 });
 
-app.post("/users/:Username/movies/:MovieID", async (req, res) => {
+app.post("/users/:Username/movies/:_id", async (req, res) => {
   await Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $push: { FavoriteMovies: req.params.MovieID },
+      $push: { Favorite_movies: req.params._id},
     },
     { new: true }
   )
@@ -123,7 +123,7 @@ app.put("/users/:Username", async (req, res) => {
 });
 
 app.delete("/users/:Username", async (req, res) => {
-  await Users.findOneAndRemove({ Username: req.params.Username })
+  await Users.findOneAndDelete({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
         res.status(400).send(req.params.Username + " was not found");
@@ -137,11 +137,11 @@ app.delete("/users/:Username", async (req, res) => {
     });
 });
 
-app.delete("/users/:Username/movies/:MovieID", async (req, res) => {
+app.delete("/users/:Username/movies/:_id", async (req, res) => {
   await Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $pull: { FavoriteMovies: req.params.MovieID },
+      $pull: { Favorite_movies: req.params._id },
     },
     { new: true }
   )
