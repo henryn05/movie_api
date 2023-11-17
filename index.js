@@ -37,7 +37,7 @@ app.use(
       if (allowedOrigins.indexOf(origin) === -1) {
         // If a specific origin isn’t found on the list of allowed origins
         let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
+          "The CORS policy for this application doesn't allow access from origin " +
           origin;
         return callback(new Error(message), false);
       }
@@ -49,6 +49,8 @@ app.use(
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
+
+const { check, validationResult } = require("express-validator");
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
@@ -88,33 +90,49 @@ app.get(
   }
 );
 
-app.post("/users", async (req, res) => {
-  let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + " already exists");
-      } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: hashedPassword,
-          Email: req.body.Email,
-          Birthdate: req.body.Birthdate,
-        })
-          .then((user) => {
-            res.status(201).json(user);
+app.post(
+  "/users",
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
+  async (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.Password);
+    await Users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + " already exists");
+        } else {
+          Users.create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthdate: req.body.Birthdate,
           })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("1st Error: " + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("1st Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 app.post(
   "/users/:Username/movies/:_id",
