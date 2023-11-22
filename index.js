@@ -13,12 +13,7 @@ const Directors = Models.Director;
 
 const app = express();
 
-/* mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); */
-
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect(process.env.CONNECTION_URI || 3000, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
