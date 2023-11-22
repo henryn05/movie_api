@@ -18,12 +18,10 @@ const app = express();
   useUnifiedTopology: true,
 }); */
 
-mongoose.connect( process.env.CONNECTION_URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(morgan("common"));
 app.use(express.static("public"));
