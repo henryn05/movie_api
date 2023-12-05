@@ -243,7 +243,6 @@ app.delete(
 // Routes for Movies
 app.get(
   "/movies",
-  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.find()
       .then((movies) => {
@@ -258,7 +257,6 @@ app.get(
 
 app.get(
   "/movies/:Title",
-  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.findOne({ Title: req.params.Title })
       .then((user) => {
