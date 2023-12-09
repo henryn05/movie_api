@@ -40,7 +40,7 @@ app.use(
   // cors()
   cors({
     origin: (origin, callback) => {
-      const allowedOrigins = ["http:localhost1234"];
+      const allowedOrigins = ["http://localhost1234"];
 
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
