@@ -40,7 +40,10 @@ app.use(
   // cors()
   cors({
     origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost1234"];
+      const allowedOrigins = [
+        "http://localhost:1234",
+        "https://henry-nguyen-myflix-02bc4a1c06a2.herokuapp.com/",
+      ];
 
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
