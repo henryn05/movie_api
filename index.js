@@ -40,7 +40,9 @@ app.use(
   // cors()
   cors({
     origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost1234"];
+      const allowedOrigins = [
+        "http://localhost:1234"
+      ];
 
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
@@ -343,10 +345,7 @@ app.delete(
 );
 
 // Routes for Genres
-app.get(
-  "/genres",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
+app.get("/genres", async (req, res) => {
     await Genres.find()
       .then((genres) => {
         res.status(201).json(genres);
@@ -358,10 +357,7 @@ app.get(
   }
 );
 
-app.get(
-  "/genres/:Name",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
+app.get("/genres/:Name", async (req, res) => {
     await Genres.findOne({ Name: req.params.Name })
       .then((genre) => {
         res.json(genre);
@@ -446,10 +442,7 @@ app.delete(
 );
 
 //Routes for Directors
-app.get(
-  "/directors",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
+app.get("/directors", async (req, res) => {
     await Directors.find()
       .then((directors) => {
         res.status(201).json(directors);
@@ -461,10 +454,7 @@ app.get(
   }
 );
 
-app.get(
-  "/directors/:Name",
-  passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
+app.get("/directors/:Name", async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
       .then((director) => {
         res.json(director);
