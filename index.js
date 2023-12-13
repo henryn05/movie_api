@@ -345,9 +345,7 @@ app.delete(
 );
 
 // Routes for Genres
-app.get(
-  "/genres",
-  passport.authenticate("jwt", { session: false }),
+app.get( "/genres",
   async (req, res) => {
     await Genres.find()
       .then((genres) => {
@@ -360,9 +358,7 @@ app.get(
   }
 );
 
-app.get(
-  "/genres/:Name",
-  passport.authenticate("jwt", { session: false }),
+app.get("/genres/:Name",
   async (req, res) => {
     await Genres.findOne({ Name: req.params.Name })
       .then((genre) => {
@@ -448,9 +444,7 @@ app.delete(
 );
 
 //Routes for Directors
-app.get(
-  "/directors",
-  passport.authenticate("jwt", { session: false }),
+app.get("/directors",
   async (req, res) => {
     await Directors.find()
       .then((directors) => {
@@ -463,9 +457,7 @@ app.get(
   }
 );
 
-app.get(
-  "/directors/:Name",
-  passport.authenticate("jwt", { session: false }),
+app.get("/directors/:Name",
   async (req, res) => {
     await Directors.findOne({ Name: req.params.Name })
       .then((director) => {
