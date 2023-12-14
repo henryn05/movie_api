@@ -172,11 +172,9 @@ app.put(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    // CONDITION TO CHECK ADDED HERE
     if (req.user.Username !== req.params.Username) {
       return res.status(400).send("Permission denied");
     }
-    // CONDITION ENDS
     await Users.findOneAndUpdate(
       { Username: req.params.Username },
       {
@@ -345,31 +343,27 @@ app.delete(
 );
 
 // Routes for Genres
-app.get( "/genres",
-  async (req, res) => {
-    await Genres.find()
-      .then((genres) => {
-        res.status(201).json(genres);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get( "/genres", async (req, res) => {
+  await Genres.find()
+    .then((genres) => {
+      res.status(201).json(genres);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
-app.get("/genres/:Name",
-  async (req, res) => {
-    await Genres.findOne({ Name: req.params.Name })
-      .then((genre) => {
-        res.json(genre);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get("/genres/:Name", async (req, res) => {
+  await Genres.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 app.post(
   "/genres",
@@ -444,31 +438,27 @@ app.delete(
 );
 
 //Routes for Directors
-app.get("/directors",
-  async (req, res) => {
-    await Directors.find()
-      .then((directors) => {
-        res.status(201).json(directors);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get("/directors", async (req, res) => {
+  await Directors.find()
+    .then((directors) => {
+      res.status(201).json(directors);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
-app.get("/directors/:Name",
-  async (req, res) => {
-    await Directors.findOne({ Name: req.params.Name })
-      .then((director) => {
-        res.json(director);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get("/directors/:Name", async (req, res) => {
+  await Directors.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 app.post(
   "/directors",
