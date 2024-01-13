@@ -41,7 +41,8 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [
-        "http://localhost:1234"
+        "http://localhost:1234",
+        "https://myflix-hn05.netlify.app/login"
       ];
 
       if (!origin) return callback(null, true);
