@@ -42,7 +42,7 @@ app.use(
     origin: (origin, callback) => {
       const allowedOrigins = [
         "http://localhost:1234",
-        "https://myflix-hn05.netlify.app/login"
+        "https://myflix-hn05.netlify.app"
       ];
 
       if (!origin) return callback(null, true);
