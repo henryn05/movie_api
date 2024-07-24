@@ -14,7 +14,7 @@ The user can filter their list of movies via the genre filter and the search bar
 
 Upon this view, the user can also choose to add the film to their favorites list or return back to the homepage. They can view their favorites list via the profile tab where they can also change their user info.
 
-## How Do I Run This On My Local Machine
+## How Do I Run This On My Local Machine?
 Before you begin, ensure you have [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed on your machine.
 
 Clone the repository:
