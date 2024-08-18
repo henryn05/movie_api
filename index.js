@@ -43,7 +43,7 @@ app.use(
         "http://localhost:1234",
         "http://localhost:4200",
         "https://myflix-hn05.onrender.com",
-        "https://myflix-hn05.netlify.app",
+        "https://myflix-hn05.netlify.app"
       ];
 
       if (!origin) return callback(null, true);
@@ -345,7 +345,7 @@ app.delete(
 );
 
 // Routes for Genres
-app.get("/genres", async (req, res) => {
+app.get( "/genres", async (req, res) => {
   await Genres.find()
     .then((genres) => {
       res.status(201).json(genres);
