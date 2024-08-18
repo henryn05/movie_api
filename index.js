@@ -13,12 +13,11 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-const app = express();
-
-/* mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}); */
+// const app = express();
+//  mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
