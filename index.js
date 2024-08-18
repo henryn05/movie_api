@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
@@ -11,7 +13,7 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
-// const app = express();
+const app = express();
 //  mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
