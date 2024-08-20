@@ -43,6 +43,7 @@ app.use(
         "https://myflix-hn05.netlify.app",
         "https://54.224.129.227",
         "https://54.164.4.224",
+        "http://henrys-client-bucket.s3-website-us-east-1.amazonaws.com ",
       ];
 
       if (!origin) return callback(null, true);
