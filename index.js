@@ -14,15 +14,9 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 
 const app = express();
-//  mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+//  mongoose.connect("mongodb://127.0.0.1:27017/myFlixDB");
 
-mongoose.connect(process.env.CONNECTION_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(CONNECTION_URI);
 
 app.use(morgan("common"));
 app.use(express.static("public"));
@@ -44,8 +38,11 @@ app.use(
       const allowedOrigins = [
         "http://localhost:1234",
         "http://localhost:4200",
+        "http://localhost:8080",
         "https://myflix-hn05.onrender.com",
-        "https://myflix-hn05.netlify.app"
+        "https://myflix-hn05.netlify.app",
+        "https://54.224.129.227",
+        "https://54.164.4.224",
       ];
 
       if (!origin) return callback(null, true);
